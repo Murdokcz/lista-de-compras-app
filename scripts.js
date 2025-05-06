@@ -5,7 +5,7 @@ const itemsByCategory = {
     'nao-pereciveis': ['Arroz', 'Feijão', 'Macarrão', 'Lentilha', 'Farinha de trigo', 'Açúcar', 'Sal', 'Óleo', 'Molho de tomate', 'Café'],
     'conservas': ['Milho verde enlatado', 'Ervilha enlatada', 'Palmito', 'Azeitona verde', 'Azeitona preta', 'Atum enlatado', 'Sardinha enlatada', 'Molho de tomate enlatado', 'Pepino em conserva', 'Palmito em conserva'],
     'bebidas': ['Água mineral', 'Refrigerante', 'Suco', 'Chá', 'Cerveja', 'Vinho tinto', 'Vinho branco', 'Vodka', 'Whisky', 'Rum', 'Cachaça', 'Champagne', 'Saquê', 'Licor'],
-    'higiene': ['Sabonete', 'Shampoo', 'Condicionador', 'Pasta de dente', 'Papel higiênico', 'Detergente', 'Desinfetante', 'Esponja de limpeza'],
+    'higiene-produto-limpeza': ['Sabonete', 'Shampoo', 'Condicionador', 'Pasta de dente', 'Papel higiênico', 'Detergente', 'Desinfetante', 'Esponja de limpeza', 'Sabao em pó', 'amaciante', 'Sabão liquido', 'escova de dente', 'naftalina'],
     'snacks': ['Biscoitos salgados', 'Biscoitos doces', 'Batata chips', 'Amendoim', 'Pipoca de micro-ondas', 'Mix de castanhas', 'Torradas', 'Snacks de milho', 'Barrinhas de cereal', 'Chocolate'],
     'descartaveis': ['Pratos descartáveis de plástico', 'Copos descartáveis de plástico', 'Talheres descartáveis', 'Guardanapos de papel', 'Canudos descartáveis', 'Sacos para lixo', 'Sacos para freezer', 'Filme plástico transparente', 'Papel alumínio', 'Toalhas de mesa descartáveis'],
     'temperos': ['Sal refinado', 'Sal grosso', 'Pimenta-do-reino moída', 'Pimenta vermelha', 'Orégano', 'Manjericão seco', 'Louro', 'Cominho', 'Canela em pó', 'Açafrão'],
@@ -127,7 +127,8 @@ function saveSelectedItem() {
 
     shoppingList.push({
         item: selectedItem,
-        price: '0.00'
+        price: '0.00',
+        quantity: 1
     });
 
     selectedItem = null;
@@ -153,14 +154,17 @@ function updateShoppingList() {
                 <span>${item.item}</span>
             </div>
             <div class="flex items-center space-x-4">
+                <input type="number" min="1" value="${item.quantity}" 
+                    class="w-16 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    onchange="updateQuantity(${index}, this.value)" title="Quantidade" />
                 <div class="flex items-center bg-gray-50 rounded-lg px-3 py-2">
                     <span class="mr-2 text-gray-600">R$</span>
                     <input type="number" step="0.01" min="0" value="${item.price}" 
                         class="w-24 bg-transparent focus:outline-none"
-                        onchange="updatePrice(${index}, this.value)">
+                        onchange="updatePrice(${index}, this.value)" title="Valor" />
                 </div>
                 <button onclick="deleteItem(${index})" 
-                    class="text-red-500 hover:text-red-700 transition-colors p-2 rounded-full hover:bg-red-50">
+                    class="text-red-500 hover:text-red-700 transition-colors p-2 rounded-full hover:bg-red-50" title="Excluir item">
                     <i class="fas fa-trash"></i>
                 </button>
             </div>
@@ -168,6 +172,12 @@ function updateShoppingList() {
         container.appendChild(itemDiv);
     });
 
+    updateTotal();
+}
+
+function updateQuantity(index, quantity) {
+    shoppingList[index].quantity = parseInt(quantity) || 1;
+    localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
     updateTotal();
 }
 
@@ -192,6 +202,6 @@ function deleteAllItems() {
 }
 
 function updateTotal() {
-    const total = shoppingList.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
+    const total = shoppingList.reduce((sum, item) => sum + (parseFloat(item.price || 0) * (item.quantity || 1)), 0);
     document.getElementById('total-value').textContent = total.toFixed(2);
 }
