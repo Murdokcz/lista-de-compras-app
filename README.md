@@ -1,51 +1,49 @@
 # Lista de Compras
 
-## Project Overview
-**Lista de Compras** is a web application designed to help users create, manage, and track their shopping lists efficiently. Users can categorize items, search for specific products, and save their selections to local storage, allowing for easy access and modification.
+## Visão Geral do Projeto
+**Lista de Compras** é uma aplicação web projetada para ajudar os usuários a criar, gerenciar e acompanhar suas listas de compras de forma eficiente. Os usuários podem categorizar itens, buscar produtos específicos e salvar suas seleções no armazenamento local, permitindo fácil acesso e modificação.
 
-## Installation
-To run the project locally, follow these steps:
+## Instalação
+Para executar o projeto localmente, siga os passos abaixo:
 
-1. **Clone the repository:**
+1. **Clone o repositório:**
    ```bash
-   git clone <repository-url>
+   git clone <url-do-repositorio>
    cd lista-de-compras
    ```
 
-2. **Open the `index.html` file in a web browser.**
-   There are no additional dependencies or setup required since the project uses CDN links for styles and scripts.
+2. **Abra o arquivo `index.html` em um navegador web.**
+   Não há dependências adicionais ou configurações necessárias, pois o projeto utiliza links CDN para estilos e scripts.
 
-## Usage
-- **Switch Tabs:** Use the "Criar Lista" and "Sua Lista" buttons to navigate between the creation of a shopping list and viewing the current shopping list.
-- **Select Category:** Choose a category from the dropdown menu to view items associated with that category.
-- **Search Item:** Use the search bar to filter items dynamically as you type.
-- **Manage Items:** Select items to be added to your shopping list. After selection, click the "Salvar Item" button to add the selected item.
-- **View Shopping List:** Your shopping list will display items you have saved along with the option to delete individual items or clear the entire list.
+## Uso
+- **Alternar abas:** Use os botões "Criar Lista" e "Sua Lista" para navegar entre a criação da lista de compras e a visualização da lista atual.
+- **Selecionar categoria:** Escolha uma categoria no menu suspenso para visualizar os itens associados a essa categoria.
+- **Buscar item:** Utilize a barra de busca para filtrar os itens dinamicamente enquanto digita.
+- **Gerenciar itens:** Selecione os itens que deseja adicionar à sua lista de compras. Após a seleção, clique no botão "Salvar Item" para adicionar o item selecionado.
+- **Visualizar lista de compras:** Sua lista de compras exibirá os itens salvos, com opções para excluir itens individualmente ou limpar toda a lista.
 
-## Features
-- Dynamic item filtering based on selected category and search term.
-- Ability to add and manage shopping list items.
-- Real-time total price calculation.
-- Persistent storage using Local Storage to retain shopping list data across sessions.
-- User-friendly interface utilizing Tailwind CSS for styling.
+## Funcionalidades
+- Filtragem dinâmica de itens com base na categoria selecionada e no termo de busca.
+- Capacidade de adicionar e gerenciar itens na lista de compras.
+- Cálculo em tempo real do valor total.
+- Armazenamento persistente usando Local Storage para manter os dados da lista entre sessões.
+- Interface amigável utilizando Tailwind CSS para estilização.
 
-## Dependencies
-This project relies on the following external libraries:
+## Dependências
+Este projeto utiliza as seguintes bibliotecas externas:
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Font Awesome](https://fontawesome.com/)
 
-No additional packages are defined in `package.json` as this project is a simple HTML/CSS/JavaScript application.
+Não há pacotes adicionais definidos em `package.json`, pois este projeto é uma aplicação simples em HTML/CSS/JavaScript.
 
-## Project Structure
+## Estrutura do Projeto
 ```
 /
-├── index.html        # Main HTML file containing the structure of the application
-├── styles.css        # Custom CSS styles for the application
-└── scripts.js        # JavaScript file for interactivity and functionality
+├── index.html        # Arquivo HTML principal contendo a estrutura da aplicação
+├── styles.css        # Estilos CSS personalizados para a aplicação
+└── scripts.js        # Arquivo JavaScript para interatividade e funcionalidades
 ```
 
-- **`index.html`**: The main interface of the shopping list application.
-- **`styles.css`**: Contains custom styles overriding default Tailwind CSS where necessary.
-- **`scripts.js`**: Handles all the application logic, including user interactions and item management.
-
-Feel free to explore, modify, and enhance the application as needed!
+- **`index.html`**: Interface principal da aplicação de lista de compras.
+- **`styles.css`**: Contém estilos personalizados que sobrescrevem o Tailwind CSS padrão quando necessário.
+- **`scripts.js`**: Gerencia toda a lógica da aplicação, incluindo interações do usuário e gerenciamento de itens.
