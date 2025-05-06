@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lista de Compras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <h1 class="text-3xl font-bold text-center mb-8 text-blue-600">Lista de Compras</h1>
+
+        <!-- Tabs -->
+        <div class="flex mb-6">
+            <button onclick="switchTab('criar')" id="criar-btn" class="tab-btn flex-1 py-3 px-6 bg-blue-500 text-white rounded-l-lg hover:bg-blue-600 transition-colors">
+                <i class="fas fa-plus-circle mr-2"></i>Criar Lista
+            </button>
+            <button onclick="switchTab('lista')" id="lista-btn" class="tab-btn flex-1 py-3 px-6 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 transition-colors opacity-75">
+                <i class="fas fa-shopping-cart mr-2"></i>Sua Lista
+            </button>
+        </div>
+
+        <!-- Criar Lista Tab -->
+        <div id="criar-tab" class="tab-content bg-white rounded-lg shadow-lg p-6" style="display: block;">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Category Selection -->
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Selecione uma Categoria:</label>
+                    <select id="category-select" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Escolha uma categoria</option>
+                        <option value="pereciveis">Perecíveis</option>
+                        <option value="frutas">Frutas</option>
+                        <option value="verduras">Verduras</option>
+                        <option value="nao-pereciveis">Não Perecíveis</option>
+                        <option value="conservas">Conservas</option>
+                        <option value="bebidas">Bebidas</option>
+                        <option value="higiene">Higiene</option>
+                        <option value="snacks">Snacks</option>
+                        <option value="descartaveis">descartaveis</option>
+                        <option value="temperos">temperos</option>
+                        <option value="pets">pets</option>
+                    </select>
+                </div>
+
+                <!-- Item Search -->
+                <div>
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Buscar Item:</label>
+                    <input type="text" id="item-search" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite para buscar..." />
+                </div>
+            </div>
+
+            <!-- Items List -->
+            <div class="mt-6">
+                <div id="items-container" class="max-h-96 overflow-y-auto space-y-2 bg-gray-50 rounded-lg p-4">
+                    <div class="text-gray-500 text-center py-4">Selecione uma categoria para ver os itens</div>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <button id="save-btn" onclick="saveSelectedItem()" class="mt-6 w-full bg-green-500 text-white py-3 px-6 rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                <i class="fas fa-save mr-2"></i>Salvar Item
+            </button>
+        </div>
+
+        <!-- Lista de Compras Tab -->
+        <div id="lista-tab" class="tab-content bg-white rounded-lg shadow-lg p-6" style="display: none;">
+            <div id="shopping-list" class="space-y-4">
+                <!-- Shopping list items will be dynamically populated here -->
+            </div>
+
+            <div class="mt-6 flex justify-between items-center border-t pt-4">
+                <button onclick="deleteAllItems()" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition-colors">
+                    <i class="fas fa-trash-alt mr-2"></i>Excluir Tudo
+                </button>
+                <div class="text-xl font-bold">
+                    Total: R$ <span id="total-value">0.00</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js" defer></script>
+</body>
+</html>
