@@ -17,12 +17,37 @@ let shoppingList = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     const categorySelect = document.getElementById('category-select');
+    const itemSearchContainer = document.getElementById('item-search-container');
     const itemSearch = document.getElementById('item-search');
 
     categorySelect.addEventListener('change', () => {
         selectedItem = null;
+        if (categorySelect.value === 'item-novo') {
+            // Show input for custom item name
+            itemSearchContainer.innerHTML = `
+                <label class="block text-gray-700 text-sm font-bold mb-2">Nome do Item:</label>
+                <input type="text" id="custom-item-name" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite o nome do item..." />
+            `;
+            const customItemInput = document.getElementById('custom-item-name');
+            customItemInput.addEventListener('input', () => {
+                selectedItem = customItemInput.value.trim() || null;
+                document.getElementById('save-btn').disabled = !selectedItem;
+            });
+        } else {
+            // Restore search input for normal categories
+            itemSearchContainer.innerHTML = `
+                <label class="block text-gray-700 text-sm font-bold mb-2">Buscar Item:</label>
+                <input type="text" id="item-search" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite para buscar..." />
+            `;
+            const newItemSearch = document.getElementById('item-search');
+            newItemSearch.addEventListener('input', updateItemsList);
+            updateItemsList();
+            document.getElementById('save-btn').disabled = true;
+        }
         updateItemsList();
     });
+
+    // Initial setup
     itemSearch.addEventListener('input', updateItemsList);
 
     const savedList = localStorage.getItem('shoppingList');
@@ -125,8 +150,21 @@ function selectItem(item) {
 function saveSelectedItem() {
     if (!selectedItem) return;
 
+    const category = document.getElementById('category-select').value;
+    let itemToSave = selectedItem;
+
+    if (category === 'item-novo') {
+        const customItemInput = document.getElementById('custom-item-name');
+        if (customItemInput && customItemInput.value.trim() !== '') {
+            itemToSave = customItemInput.value.trim();
+        } else {
+            // No valid custom item name entered
+            return;
+        }
+    }
+
     shoppingList.push({
-        item: selectedItem,
+        item: itemToSave,
         price: '0.00',
         quantity: 1
     });
@@ -134,8 +172,19 @@ function saveSelectedItem() {
     selectedItem = null;
     document.getElementById('save-btn').disabled = true;
     document.getElementById('category-select').value = '';
-    document.getElementById('item-search').value = '';
-    document.getElementById('items-container').innerHTML = '';
+    // Reset input fields depending on category
+    if (category === 'item-novo') {
+        const itemSearchContainer = document.getElementById('item-search-container');
+        itemSearchContainer.innerHTML = `
+            <label class="block text-gray-700 text-sm font-bold mb-2">Buscar Item:</label>
+            <input type="text" id="item-search" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Digite para buscar..." />
+        `;
+        const newItemSearch = document.getElementById('item-search');
+        newItemSearch.addEventListener('input', updateItemsList);
+    } else {
+        document.getElementById('item-search').value = '';
+        document.getElementById('items-container').innerHTML = '';
+    }
 
     updateShoppingList();
     localStorage.setItem('shoppingList', JSON.stringify(shoppingList));
